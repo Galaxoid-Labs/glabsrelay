@@ -32,16 +32,17 @@ func main() {
 		panic(err)
 	}
 
-	state := relay29.Init(relay29.Options{
-		Domain:    "localhost:5577",
-		DB:        &bolt.BoltBackend{Path: "./db"},
-		SecretKey: relayPrivateKey,
-	})
-
-	if err := state.DB.Init(); err != nil {
-		fmt.Print("hmm")
+	db := bolt.BoltBackend{Path: "./db"}
+	err = db.Init()
+	if err != nil {
 		panic(err)
 	}
+
+	state := relay29.Init(relay29.Options{
+		Domain:    "localhost:5577",
+		DB:        &db,
+		SecretKey: relayPrivateKey,
+	})
 
 	// init relay
 	state.Relay.Info.Name = relayName
