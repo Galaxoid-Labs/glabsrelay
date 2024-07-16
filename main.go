@@ -33,7 +33,7 @@ func main() {
 	}
 
 	state := relay29.Init(relay29.Options{
-		Domain:    "localhost:2929",
+		Domain:    "localhost:5577",
 		DB:        &bolt.BoltBackend{Path: "./db"},
 		SecretKey: relayPrivateKey,
 	})
@@ -70,7 +70,7 @@ func main() {
 		fmt.Fprint(w, "nothing to see here, you must use a nip-29 powered client")
 	})
 
-	fmt.Println("running on http://0.0.0.0:2929")
+	fmt.Println("running on http://0.0.0.0:5577")
 	if err := http.ListenAndServe(":5577", state.Relay); err != nil {
 		log.Fatal("failed to serve")
 	}
